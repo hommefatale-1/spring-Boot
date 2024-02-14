@@ -12,4 +12,7 @@ public interface BoardService {
 
 	// 게시글 삭제하기
 	HashMap<String, Object> deleteBoardList(HashMap<String, Object> map);
+	
+	//게시글 작성하기
+	HashMap<String, Object> addBoardList(HashMap<String, Object> map);
 }

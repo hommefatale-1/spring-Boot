@@ -99,6 +99,9 @@ button.delete-btn {
 				<td>{{item.cdateTime}}</td>
 			</tr>
 		</table>
+		<div>
+			<button @click="fnboardAdd">게시글 작성하기</button>
+		</div>
 	</div>
 </body>
 </html>
@@ -124,6 +127,11 @@ button.delete-btn {
 			},
 			fnView : function(boardNo) {
 				$.pageChange("/boardView.do", {
+					"boardNo" : boardNo
+				});
+			},
+			fnboardAdd : function(boardNo) {
+				$.pageChange("/boardAdd.do", {
 					"boardNo" : boardNo
 				});
 			}

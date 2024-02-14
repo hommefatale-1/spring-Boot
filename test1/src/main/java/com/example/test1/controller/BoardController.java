@@ -23,20 +23,27 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-
+	//게시글 목록
 	@RequestMapping("/boardList.do") // 주소
 	public String boardList(Model model) throws Exception {
 
 		return "/board-list"; // jsp웹파일
 	}
-
+	//게시글 상세보기
 	@RequestMapping("/boardView.do")
 	public String boardView(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
 		request.setAttribute("map", map);
 		return "/board-view";
 	}
-
+	//게시글 작성하기
+	@RequestMapping("/boardAdd.do")
+	public String boardAdd(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
+			throws Exception {
+		//request.setAttribute("map", map);
+		return "/board-add";
+	}
+	//게시글 목록
 	@RequestMapping(value = "/board.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String board(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -45,7 +52,7 @@ public class BoardController {
 		return new Gson().toJson(resultMap);
 	}
 
-	//게시글 상세보기
+	// 게시글 상세보기
 	@RequestMapping(value = "/boardDetail.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String boardDetail(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -53,12 +60,21 @@ public class BoardController {
 		resultMap = boardService.selectBoardInfo(map);
 		return new Gson().toJson(resultMap);
 	}
+
 	// 게시글 삭제하기
 	@RequestMapping(value = "/boardDelete.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String boardDelete(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = boardService.deleteBoardList(map);
+		return new Gson().toJson(resultMap);
+	}
+	//게시글 작성하기
+	@RequestMapping(value = "/boardAdd.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String boardAdd(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		resultMap = boardService.addBoardList(map);
 		return new Gson().toJson(resultMap);
 	}
 

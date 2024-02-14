@@ -18,4 +18,9 @@ public interface BoardMapper {
 	// 게시글 삭제
 	void deleteBoard(HashMap<String, Object> map);
 
+	// 게시글 조회수 증가
+	void updateHit(HashMap<String, Object> map);
+
+	// 게시글 작성
+	void insertBoard(HashMap<String, Object> map);
 }

@@ -22,7 +22,7 @@
 				<span>비밀번호확인 : </span><input type="text" v-model="user.pwd1">
 			</div>
 			<div>
-				<span>이름 : </span><input type="text" v-model="user.name" value="">
+				<span>이름 : </span><input type="text" v-model="user.name" >
 			</div>
 			<div>
 				<span>핸드폰 번호 : </span> 

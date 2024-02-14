@@ -70,12 +70,19 @@ tr:hover {
 		</table>
 		<!-- 본인이 쓴글이거나 관리자 권한일때만 삭제버튼 보이게 하기 -->
 		<div v-if="info.userId == sessionId || sessionStatus == 'A'">
-			<button @click="fndelete()">삭제</button>
+			<button @click="fndelete">삭제</button>
+		</div>
+		<div>
+			<button onclick="goBack()">되돌아 가기</button>
 		</div>
 	</div>
 </body>
 </html>
 <script type="text/javascript">
+	function goBack() {
+		window.history.back();
+	}
+
 	var app = new Vue({
 		el : '#app',
 		data : {
@@ -102,6 +109,9 @@ tr:hover {
 			},
 			fndelete : function() {
 				var self = this;
+				if (!confirm("삭제하겠습니까?")) {
+					return;
+				}
 				var nparmap = {
 					boardNo : self.boardNo
 				};
@@ -111,7 +121,13 @@ tr:hover {
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						self.delete = data.delete;
+						if (data.result == "success") {
+							alert("삭제 되었습니다.");
+							$.pageChange("/boardList.do", {});
+							//location.href = "/boaerList";
+						} else {
+							alert("다시 시도해주세요");
+						}
 					}
 				});
 			}

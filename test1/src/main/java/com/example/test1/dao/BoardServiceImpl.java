@@ -16,7 +16,7 @@ public class BoardServiceImpl implements BoardService {
 	@Autowired
 	BoardMapper boardMapper;
 
-//게시글 리스트 보기
+//게시글 목록 보기
 	@Override
 	public HashMap<String, Object> selectBoardList(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
@@ -32,6 +32,9 @@ public class BoardServiceImpl implements BoardService {
 	public HashMap<String, Object> selectBoardInfo(HashMap<String, Object> map) {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		// 조회수 증가하기
+		boardMapper.updateHit(map);
+		// 게시글 상세 조회
 		Board board = boardMapper.selectBoardInfo(map);
 		resultMap.put("info", board);
 		resultMap.put("result", "success");
@@ -44,11 +47,27 @@ public class BoardServiceImpl implements BoardService {
 		// TODO Auto-generated method stub
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
-			
+			boardMapper.deleteBoard(map);
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "fail");
+		}
+		return resultMap;
+	}
+
+	// 게시글 작성
+	@Override
+	public HashMap<String, Object> addBoardList(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			boardMapper.insertBoard(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "fail");
+
 		}
 		return resultMap;
 	}
