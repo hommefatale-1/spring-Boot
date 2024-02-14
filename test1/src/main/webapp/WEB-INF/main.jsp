@@ -17,17 +17,16 @@
 </body>
 </html>
 <script type="text/javascript">
-var app = new Vue({ 
-    el: '#app',
-    data: {
-    }   
-    , methods: {
-    	fnUpdate : function(){
-    		location.href="/user/edit.do";
-            }
-        }, 
-        created: function () {
-    	var self = this;
-	}
-});
+	var app = new Vue({
+		el : '#app',
+		data : {},
+		methods : {
+			fnUpdate : function() {
+				location.href = "/user/edit.do";
+			}
+		},
+		created : function() {
+			var self = this;
+		}
+	});
 </script>

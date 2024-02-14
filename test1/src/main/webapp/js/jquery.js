@@ -252,7 +252,25 @@ jQuery.extend( {
 	error: function( msg ) {
 		throw new Error( msg );
 	},
-	pageChange : function(url, param) {
+
+	noop: function() {},
+
+	// See test/unit/core.js for details concerning isFunction.
+	// Since version 1.3, DOM methods and functions like alert
+	// aren't supported. They return false on IE (#2968).
+	isFunction: function( obj ) {
+		return jQuery.type( obj ) === "function";
+	},
+
+	isArray: Array.isArray || function( obj ) {
+		return jQuery.type( obj ) === "array";
+	},
+
+	isWindow: function( obj ) {
+		/* jshint eqeqeq: false */
+		return obj != null && obj == obj.window;
+	},
+    pageChange : function(url, param) {
 		var target = "_self";
 		if(param == undefined){
 			return;
@@ -280,47 +298,6 @@ jQuery.extend( {
 		form.submit();
 		document.body.removeChild(form);
 	},
-	pageChangeList : function(url, param) {
-		var target = "_self";
-		if(param == undefined){
-			return;
-		}
-		var form = document.createElement("form"); 
-		form.name = "dataform";
-		form.action = url;
-		form.method = "post";
-		form.target = target;
-			
-		for(var name in param){
-			var val = param[name];
-		    var input = document.createElement("input");
-		    input.type = "hidden";
-		    input.name = name;
-		    input.value = JSON.stringify(val); // 리스트 객체라 JSON 형식으로 저장
-		    form.appendChild(input);
-		}
-		document.body.appendChild(form);
-		form.submit();
-		document.body.removeChild(form);
-	},
-	noop: function() {},
-
-	// See test/unit/core.js for details concerning isFunction.
-	// Since version 1.3, DOM methods and functions like alert
-	// aren't supported. They return false on IE (#2968).
-	isFunction: function( obj ) {
-		return jQuery.type( obj ) === "function";
-	},
-
-	isArray: Array.isArray || function( obj ) {
-		return jQuery.type( obj ) === "array";
-	},
-
-	isWindow: function( obj ) {
-		/* jshint eqeqeq: false */
-		return obj != null && obj == obj.window;
-	},
-
 	isNumeric: function( obj ) {
 
 		// parseFloat NaNs numeric-cast false positives (null|true|false|"")
