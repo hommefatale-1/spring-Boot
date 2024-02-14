@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.SampleMapper">
+	<select id="selectStuList" parameterType="hashmap" resultType="com.example.test1.model.Student">
+		SELECT
+			STU_NO,
+			STU_NAME,
+			STU_DEPT,
+			STU_GRADE,
+			STU_CLASS,
+			STU_GENDER,
+			STU_HEIGHT,
+			STU_WEIGHT
+		FROM STUDENT 
+		WHERE STU_NO LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<update id="updateStu" parameterType="hashmap">
+		UPDATE STUDENT
+		SET
+			STU_GRADE = #{stuGrade}
+		WHERE STU_NO = #{stuNo}
+	</update>
+	<insert id="insertStu" parameterType="hashmap">
+		INSERT INTO 
+			STUDENT(STU_NO, STU_NAME, STU_DEPT, STU_GRADE, STU_GENDER) 
+			VALUES(#{stuNo}, #{stuName}, #{stuDept}, #{stuGrade}, #{stuGender})
+	</insert>
+	<select id="selectId" parameterType="hashmap" resultType="com.example.test1.model.Student">
+		SELECT *
+		FROM STUDENT WHERE STU_NO = #{stuNo}
+	</select>
+	
+</mapper>

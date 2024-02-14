@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.test1.mapper.UserMapper">
+	<select id="selectUser" parameterType="hashmap"
+		resultType="com.example.test1.model.User">
+		SELECT * FROM TBL_MEMBER1 WHERE USERID = #{id}
+	</select>
+
+	<insert id="insertUser" parameterType="hashmap">
+		INSERT INTO 
+		TBL_MEMBER1(USERID, PWD, USERNAME, PHONE, GENDER, CNT, STATUS)
+		VALUES(#{id}, #{pwd}, #{name}, #{phone}, #{gender}, 0,'U')
+	</insert>
+
+</mapper>
