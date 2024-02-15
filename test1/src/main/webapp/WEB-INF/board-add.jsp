@@ -90,7 +90,7 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><input type="text" v-model="add.contents"></td>
+				<td><textarea rows="5" cols="40" v-model="add.contents"></textarea></td>
 			</tr>
 			<tr>
 				<th>작성자</th>

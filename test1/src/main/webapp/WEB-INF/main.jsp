@@ -13,6 +13,7 @@
 <body>
 	<div id="app">
 		<button @click="fnUpdate">회원정보수정</button>
+		<button @click="fnBoard">게시판이동</button>
 	</div>
 </body>
 </html>
@@ -23,7 +24,11 @@
 		methods : {
 			fnUpdate : function() {
 				location.href = "/user/edit.do";
-			}
+			},
+			fnBoard : function() {
+				location.href = "/boardList.do";
+
+			},
 		},
 		created : function() {
 			var self = this;

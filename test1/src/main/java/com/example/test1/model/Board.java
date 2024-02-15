@@ -14,4 +14,5 @@ public class Board {
 	private String udataTime;
 	
 	private String userName;
+	private int commCnt;
 }

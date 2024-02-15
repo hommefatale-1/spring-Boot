@@ -83,6 +83,15 @@ button.delete-btn {
 </style>
 <body>
 	<div id="app">
+		<div>
+			<select v-model="keywordType">
+				<option value="">::선택::</option>
+				<option value="title">제목</option>
+				<option value="user">작성자</option>
+			</select> <span>검색 : </span><input type="text" v-model="keyword"
+				@keyup.enter="fnList">
+			<button @click="fnList">검색하기</button>
+		</div>
 		<table border="1">
 			<tr>
 				<th>번호</th>
@@ -93,9 +102,14 @@ button.delete-btn {
 			</tr>
 			<tr v-for="(item, index) in list">
 				<td>{{item.boardNo}}</td>
-				<td><a href="javascript:;" @click="fnView(item.boardNo)">{{item.title}}</a></td>
+				<td><a href="javascript:;" @click="fnView(item.boardNo)">
+						{{item.title}} <span v-if="item.commCnt != 0">
+							({{item.commCnt}}) </span>
+				</a></td>
 				<td>{{item.hit}}</td>
-				<td>{{item.userName}}</td>
+				<td><a href="javascript:;" @click="fnUser(item.userId)">
+				{{item.userName}}
+				</a></td>
 				<td>{{item.cdateTime}}</td>
 			</tr>
 		</table>
@@ -109,12 +123,17 @@ button.delete-btn {
 	var app = new Vue({
 		el : '#app',
 		data : {
-			list : []
+			list : [],
+			keyword : "",
+			keywordType : ""
 		},
 		methods : {
 			fnList : function() {
 				var self = this;
-				var nparmap = {};
+				var nparmap = {
+					keyword : self.keyword,
+					keywordType : self.keywordType
+				};
 				$.ajax({
 					url : "board.dox",
 					dataType : "json",
@@ -125,6 +144,7 @@ button.delete-btn {
 					}
 				});
 			},
+
 			fnView : function(boardNo) {
 				$.pageChange("/boardView.do", {
 					"boardNo" : boardNo
@@ -133,6 +153,11 @@ button.delete-btn {
 			fnboardAdd : function(boardNo) {
 				$.pageChange("/boardAdd.do", {
 					"boardNo" : boardNo
+				});
+			},
+			fnUser : function(userId) {
+				$.pageChange("/selectUser.do", {
+					"userId" : userId
 				});
 			}
 		},

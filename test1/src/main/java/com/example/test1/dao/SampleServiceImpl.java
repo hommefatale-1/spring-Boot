@@ -39,18 +39,5 @@ public class SampleServiceImpl implements SampleService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public HashMap<String, Object> searchUser(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addUser(HashMap<String, Object> map) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 }
