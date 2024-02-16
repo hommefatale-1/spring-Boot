@@ -31,26 +31,28 @@ public class UserController {
 		return "/main"; // jsp웹파일
 	}
 
-//회원정보수정	페이지
+	// 회원정보수정 페이지
 	@RequestMapping("/user/edit.do")
 	public String edit(Model model) throws Exception {
 		System.out.println(session.getAttribute("userId"));
 		return "/user-edit"; // jsp웹파일
 	}
 
-//로그인 페이지	
+	// 로그인 페이지
 	@RequestMapping("/login.do")
 	public String login(Model model) throws Exception {
 
 		return "/login"; // jsp웹파일
 	}
 
+	// 회원가입
 	@RequestMapping("/join.do")
 	public String join(Model model) throws Exception {
 
 		return "/join"; // jsp웹파일
 	}
 
+	// 유저정보 상세보기
 	@RequestMapping("/selectUser.do")
 	public String selectUser(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
@@ -58,6 +60,7 @@ public class UserController {
 		return "/select-user"; // jsp웹파일
 	}
 
+	// 로그인
 	@RequestMapping(value = "/login.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String login(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -66,6 +69,7 @@ public class UserController {
 		return new Gson().toJson(resultMap);
 	}
 
+	// 회원가입
 	@RequestMapping(value = "/join.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String join(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -74,6 +78,7 @@ public class UserController {
 		return new Gson().toJson(resultMap);
 	}
 
+	// 중복체크
 	@RequestMapping(value = "/Check.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String Check(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
@@ -82,11 +87,22 @@ public class UserController {
 		return new Gson().toJson(resultMap);
 	}
 
-	@RequestMapping(value = "/selectUser.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	// 유저 정보수정
+	@RequestMapping(value = "../selectUser.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String selectUser(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		resultMap = userService.searchEditUser(map);
 		return new Gson().toJson(resultMap);
 	}
+
+	// 유저 정보상세보기
+	@RequestMapping(value = "/selectUserList.dox", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public String selectUserList(Model model, @RequestParam HashMap<String, Object> map) throws Exception {
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		//resultMap = userService.searchEditUser(map);
+		return new Gson().toJson(resultMap);
+	}
+
 }

@@ -36,7 +36,6 @@
 		methods : {
 			login : function() {
 				var self = this;
-			
 				var nparmap = {
 					id : self.id,
 					pwd : self.pwd

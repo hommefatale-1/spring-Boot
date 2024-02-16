@@ -9,81 +9,92 @@
 <title>게시판 페이지</title>
 </head>
 <style>
-  body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-    color: #333;
-  }
+body {
+	font-family: 'Arial', sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f4f4f4;
+	color: #333;
+}
 
-  #app {
-    max-width: 800px;
-    margin: 20px auto;
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
+#app {
+	max-width: 800px;
+	margin: 20px auto;
+	background-color: #fff;
+	padding: 20px;
+	border-radius: 8px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-  input[type="text"] {
-    padding: 8px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
+input[type="text"] {
+	padding: 8px;
+	margin: 5px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	box-sizing: border-box;
+}
 
-  button {
-    padding: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-  }
+button {
+	padding: 10px;
+	cursor: pointer;
+	border: none;
+	border-radius: 4px;
+}
 
-  button.primary {
-    background-color: #4caf50;
-    color: #fff;
-  }
+button.primary {
+	background-color: #4caf50;
+	color: #fff;
+}
 
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-  }
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-top: 20px;
+}
 
-  th, td {
-    border: 1px solid #ddd;
-    padding: 10px;
-    text-align: center;
-  }
+th, td {
+	border: 1px solid #ddd;
+	padding: 10px;
+	text-align: center;
+}
 
-  th {
-    background-color: #4caf50;
-    color: #fff;
-  }
+th {
+	background-color: #4caf50;
+	color: #fff;
+}
 
-  tr:nth-child(even) {
-    background-color: #f2f2f2;
-  }
+tr:nth-child(even) {
+	background-color: #f2f2f2;
+}
 
-  tr:hover {
-    background-color: #e0e0e0;
-  }
+tr:hover {
+	background-color: #e0e0e0;
+}
 
-  button.edit-btn {
-    background-color: #2196F3;
-    color: #fff;
-  }
+button.edit-btn {
+	background-color: #2196F3;
+	color: #fff;
+}
 
-  button.delete-btn {
-    background-color: #f44336;
-    color: #fff;
-  }
+button.delete-btn {
+	background-color: #f44336;
+	color: #fff;
+}
 </style>
 <body>
 	<div id="app">
 		<table border="1">
+			<tr>
+				<th>게시판선택</th>
+				<td>
+				<select v-model="kind">
+				<option value="">::선택::</option>
+					<option value="1">공지사항</option>
+					<option value="2">자유게시판</option>
+					<option value="3">문의게시판</option>			
+				</select>
+				</td>
+			</tr>
 			<tr>
 				<th>제목</th>
 				<td><input type="text" v-model="add.title"></td>
@@ -108,7 +119,8 @@
 			add : {
 				userId : "${userId}",
 				title : "",
-				contents : ""
+				contents : "",
+				kind : "${map.kind}"
 			}
 		},
 		methods : {
@@ -121,10 +133,10 @@
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						if(data.result == "success"){
+						if (data.result == "success") {
 							alert("저장 되었습니다.");
 							$.pageChange("/boardList.do", {});
-						}else {
+						} else {
 							alert("다시 시도해주세요");
 						}
 					}

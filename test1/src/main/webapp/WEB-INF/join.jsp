@@ -13,38 +13,38 @@
 <body>
 	<div id="app">
 		<div>
-			<span>아이디 : </span>
-			<input type="text" v-model="user.id" @keyup="fncheck">
+			<span>아이디 : </span> <input type="text" v-model="user.id"
+				@keyup="fncheck">
 			<div v-if="user.id != ''">
-			<div v-if="checkFlg" style="color: blue;">사용 가능한 아이디 입니다.</div>
-			<div v-else style="color: red;">중복된 아이디가 있습니다.</div>
+				<div v-if="checkFlg" style="color: blue;">사용 가능한 아이디 입니다.</div>
+				<div v-else style="color: red;">중복된 아이디가 있습니다.</div>
 			</div>
-		<!-- <input v-if="checkFlg" type="text" v-model="user.id" disabled>
+			<!-- <input v-if="checkFlg" type="text" v-model="user.id" disabled>
 		<input v-else type="text" v-model="user.id">
 			<button @click="fnCheck">중복확인</button>
 		</div> -->
-		<div>
-			<span>비밀번호 : </span><input type="text" v-model="user.pwd">
-		</div>
-		<div>
-			<span>비밀번호확인 : </span><input type="text" v-model="user.pwd1">
-		</div>
-		<div>
-			<span>이름 : </span><input type="text" v-model="user.name">
-		</div>
-		<div>
-			<span>핸드폰 번호 : </span> 
-			<input type="text" v-model="user.phone1"> - 
-			<input type="text" v-model="user.phone2"> - 
-			<input type="text" v-model="user.phone3">
-		</div>
-		<div>
-			<label><input type="radio" name="gender" value="남성" v-model="user.gender">남성</label> 
-			<label><input type="radio" name="gender" value="여성" v-model="user.gender">여성</label>
-		</div>
-		<div>
-			<!-- 메소드에 login 호출 -->
-			<button @click="fnjoin">저장</button>
+			<div>
+				<span>비밀번호 : </span><input type="text" v-model="user.pwd">
+			</div>
+			<div>
+				<span>비밀번호확인 : </span><input type="text" v-model="user.pwd1">
+			</div>
+			<div>
+				<span>이름 : </span><input type="text" v-model="user.name">
+			</div>
+			<div>
+				<span>핸드폰 번호 : </span> <input type="text" v-model="user.phone1">
+				- <input type="text" v-model="user.phone2"> - <input
+					type="text" v-model="user.phone3">
+			</div>
+			<div>
+				<label><input type="radio" name="gender" value="남성"v-model="user.gender">남성</label> 
+				<label><input type="radio" name="gender" value="여성" v-model="user.gender">여성</label>
+			</div>
+			<div>
+				<!-- 메소드에 login 호출 -->
+				<button @click="fnjoin">저장</button>
+			</div>
 		</div>
 	</div>
 </body>
@@ -68,24 +68,25 @@
 		methods : {
 			fnjoin : function() {
 				var self = this;
-				if(self.user.id == ""){
+				if (self.user.id == "") {
 					alert("아이디를 입력해 주세요");
 					return;
 				}
-				if(!self.checkFlg){
+				if (!self.checkFlg) {
 					alert("중복체크 해주세요");
 					return;
 				}
 				//js정규식 영어+숫자 
-				if(self.user.pwd == ""){
+				if (self.user.pwd == "") {
 					alert("비빌번호를 입력해 주세요");
 					return;
 				}
-				if(self.pwd != self.pwdch){
+				if (self.pwd != self.pwdch) {
 					alert("비밀번호 서로 다름");
-					return ;
+					return;
 				}
-				var phone = self.user.phone1 + self.user.phone2 + self.user.phone3;
+				var phone = self.user.phone1 + self.user.phone2
+						+ self.user.phone3;
 				var nparmap = self.user;
 				nparmap.phone = phone;
 				$.ajax({
@@ -99,17 +100,19 @@
 			},
 			fncheck : function() {
 				var self = this;
-				var nparmap = {id : self.user.id};
-			
+				var nparmap = {
+					id : self.user.id
+				};
+
 				$.ajax({
 					url : "Check.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						if(data.result == "success"){
+						if (data.result == "success") {
 							self.checkFlg = true;
-						}else{
+						} else {
 							self.checkFlg = false;
 						}
 						/* 	if(data.result == "success"){

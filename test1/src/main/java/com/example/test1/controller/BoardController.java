@@ -43,7 +43,7 @@ public class BoardController {
 	@RequestMapping("/boardAdd.do")
 	public String boardAdd(HttpServletRequest request, Model model, @RequestParam HashMap<String, Object> map)
 			throws Exception {
-		// request.setAttribute("map", map);
+		request.setAttribute("map", map);
 		return "/board-add";
 	}
 

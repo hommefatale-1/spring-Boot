@@ -24,7 +24,7 @@
 		BOARDNO
 		) C ON B.BOARDNO = C.BOARDNO
 		<!-- 임시로 값을 줌 나중에 WHERE 쓸수 있음 -->
-		WHERE 1=1
+		WHERE kind = #{kind}
 		<!-- 옵션에 따른 검색 기능 -->
 		<if test="keywordType == 'title'">
 			AND TITLE LIKE '%' || #{keyword} || '%'
@@ -63,7 +63,7 @@
 	<insert id="insertBoard" parameterType="hashmap">
 		INSERT INTO TBL_BOARD
 		VALUES(BBS_SEQ.NEXTVAL, #{title}, #{contents}, 0,
-		#{userId}, 2,
+		#{userId}, #{kind},
 		SYSDATE, SYSDATE)
 	</insert>
 	<!-- 게시글 수정 -->

@@ -12,6 +12,10 @@
 </style>
 <body>
 	<div id="app">
+	<div>이름 : {{info.userName}}</div>
+	<div>아이디 : {{info.userId}}</div>
+	<div>성별 : {{info.gender}}</div>
+	<div>전화번호 : {{info.phone}}</div>
 	</div>
 </body>
 </html>
@@ -19,18 +23,22 @@
 var app = new Vue({ 
     el: '#app',
     data: {
-    	userId : "${map.userId}"
+    	userId : "${map.userId}",
+    	info : []
     }   
     , methods: {
     	list : function(){
             var self = this;
-            var nparmap = {};
+            var nparmap = {
+            		
+            };
             $.ajax({
-                url:"test.dox",
+                url:"selectUserList.dox",
                 dataType:"json",	
                 type : "POST", 
                 data : nparmap,
-                success : function() { 
+                success : function(data) { 
+                	self.info = data.user
                 }
             }); 
         } 

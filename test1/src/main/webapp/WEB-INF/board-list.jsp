@@ -80,9 +80,45 @@ button.delete-btn {
 	background-color: #f44336;
 	color: #fff;
 }
+
+li {
+	list-style: none;
+	margin-left: 10px;
+}
+ul{
+	display: inline-block;
+	padding: 3px;
+	cursor: 
+}
+
+.tab {
+ background-color: #ddd;
+ border: 1px 1px #ddd;
+ box-shadow: 1px 1px #eee;
+}
+.select-tab{
+background-color: #bbb;
+ border: 1px 1px #bbb;
+ box-shadow: 1px 1px #ccc; 
+}
+.search{
+clear:both;
+}
+ul:hover{
+background-color: black;
+color: white;
+}
+
+
+
 </style>
 <body>
 	<div id="app">
+		<li>
+			<ul v-bind:class="[kind==1 ? 'select-tob' : 'tab']" @click="fnList(1)">공지사항</ul>
+			<ul v-bind:class="[kind==2 ? 'select-tob' : 'tab']" @click="fnList(2)">자유게시판</ul>
+			<ul v-bind:class="[kind==3 ? 'select-tob' : 'tab']" @click="fnList(3)">게시판</ul>
+		</li>
 		<div>
 			<select v-model="keywordType">
 				<option value="">::선택::</option>
@@ -108,8 +144,7 @@ button.delete-btn {
 				</a></td>
 				<td>{{item.hit}}</td>
 				<td><a href="javascript:;" @click="fnUser(item.userId)">
-				{{item.userName}}
-				</a></td>
+						{{item.userName}} </a></td>
 				<td>{{item.cdateTime}}</td>
 			</tr>
 		</table>
@@ -125,14 +160,17 @@ button.delete-btn {
 		data : {
 			list : [],
 			keyword : "",
-			keywordType : ""
+			keywordType : "",
+			kind : 1
 		},
 		methods : {
-			fnList : function() {
+			fnList : function(kind) {
 				var self = this;
+				self.kind = kind;
 				var nparmap = {
 					keyword : self.keyword,
-					keywordType : self.keywordType
+					keywordType : self.keywordType,
+					kind : kind
 				};
 				$.ajax({
 					url : "board.dox",
@@ -150,9 +188,10 @@ button.delete-btn {
 					"boardNo" : boardNo
 				});
 			},
-			fnboardAdd : function(boardNo) {
+			fnboardAdd : function() {
+				var self = this;
 				$.pageChange("/boardAdd.do", {
-					"boardNo" : boardNo
+					"kind" : self.kind
 				});
 			},
 			fnUser : function(userId) {
@@ -163,7 +202,7 @@ button.delete-btn {
 		},
 		created : function() {
 			var self = this;
-			self.fnList();
+			self.fnList(1);
 		}
 	});
 </script>

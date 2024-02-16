@@ -65,7 +65,7 @@ tr:hover {
 			</tr>
 			<tr>
 				<th>작성자</th>
-				<td></td>
+				<td>{{userId}}</td>
 			</tr>
 		</table>
 		<!-- 본인이 쓴글이거나 관리자 권한일때만 삭제버튼 보이게 하기 -->
@@ -88,7 +88,7 @@ tr:hover {
 		methods : {
 			
 			/* 게시글 가져오기 */
-		  	fnBoardInfo: function(){
+		  	fnBoardInfo: function(str){
 	            var self = this;
 	            var nparmap = {boardNo : self.boardNo};
 	            $.ajax({
@@ -107,7 +107,7 @@ tr:hover {
 	            }); 
 	        },
 			/* 게시글 수정저장 */
-			fnUpdate : function() {
+			fnUpdate : function(str) {
 				var self = this;
 				var nparmap = {
 					title : self.title,
@@ -132,7 +132,7 @@ tr:hover {
 		},
 		created : function() {
 			var self = this;
-			self.fnBoardInfo();
+			self.fnBoardInfo("old");
 		}
 	});
 </script>
