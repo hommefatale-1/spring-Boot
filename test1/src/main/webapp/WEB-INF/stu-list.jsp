@@ -134,7 +134,10 @@ var app = new Vue({
         },
         fnEdit : function(stuNo){
             var self = this;
-            var nparmap = {stuNo : stuNo, stuGrade : self.grade};
+            var nparmap = {
+            		stuNo : stuNo, 
+            		stuGrade : self.grade
+            };
             $.ajax({
                 url:"stu/edit.dox",
                 dataType:"json",	

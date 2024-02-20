@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.test1.mapper.BoardMapper;
 import com.example.test1.model.Board;
+import com.example.test1.model.BoardFile;
 import com.example.test1.model.Comment;
 
 @Service
@@ -37,15 +38,17 @@ public class BoardServiceImpl implements BoardService {
 		if (str.equals("new")) {
 			boardMapper.updateHit(map);
 		}
-
 		// 조회수 증가하기
 		// boardMapper.updateHit(map);
 		// 게시글 상세 조회
 		Board board = boardMapper.selectBoardInfo(map);
-		resultMap.put("info", board);
+		// 파일 목록보기
+		List<BoardFile> fileList = boardMapper.boardFileList(map);
 		// 게시글 상세보기에 댓글나오기
 		List<Comment> commentList = boardMapper.selectCommentList(map);
+		resultMap.put("info", board);
 		resultMap.put("commentList", commentList);
+		resultMap.put("fileList", fileList);
 		resultMap.put("result", "success");
 		return resultMap;
 	}
@@ -61,6 +64,7 @@ public class BoardServiceImpl implements BoardService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
 		}
 		return resultMap;
 	}
@@ -72,10 +76,16 @@ public class BoardServiceImpl implements BoardService {
 		HashMap<String, Object> resultMap = new HashMap<String, Object>();
 		try {
 			boardMapper.insertBoard(map);
+			// 파일넣기
+			// boardMapper.insertBoardFile(map);
+			// System.out.println(map.get("boardNo"));
+			// pk값 넘기기
+			resultMap.put("boardNo", map.get("BOARDNO"));
 			resultMap.put("result", "success");
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
 
 		}
 		return resultMap;
@@ -92,6 +102,7 @@ public class BoardServiceImpl implements BoardService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
 		}
 		return resultMap;
 	}
@@ -125,8 +136,24 @@ public class BoardServiceImpl implements BoardService {
 		} catch (Exception e) {
 			// TODO: handle exception
 			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
 		}
 		return resultMap;
+	}
+
+	@Override
+	public HashMap<String, Object> addBoardFile(HashMap<String, Object> map) {
+		// TODO Auto-generated method stub
+		HashMap<String, Object> resultMap = new HashMap<String, Object>();
+		try {
+			boardMapper.insertBoardFile(map);
+			resultMap.put("result", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			resultMap.put("result", "fail");
+			System.out.println(e.getMessage());
+		}
+		return null;
 	}
 
 }

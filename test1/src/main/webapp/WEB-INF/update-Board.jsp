@@ -86,7 +86,6 @@ tr:hover {
 			userId : "${userId}"
 		},
 		methods : {
-			
 			/* 게시글 가져오기 */
 		  	fnBoardInfo: function(str){
 	            var self = this;
@@ -107,7 +106,7 @@ tr:hover {
 	            }); 
 	        },
 			/* 게시글 수정저장 */
-			fnUpdate : function(str) {
+			fnUpdate : function() {
 				var self = this;
 				var nparmap = {
 					title : self.title,

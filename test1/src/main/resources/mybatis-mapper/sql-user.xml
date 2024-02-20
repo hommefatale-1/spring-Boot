@@ -13,5 +13,6 @@
 		TBL_MEMBER1(USERID, PWD, USERNAME, PHONE, GENDER, CNT, STATUS)
 		VALUES(#{id}, #{pwd}, #{name}, #{phone}, #{gender}, 0,'U')
 	</insert>
+	
 
 </mapper>

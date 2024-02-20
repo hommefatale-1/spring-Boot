@@ -12,12 +12,30 @@
 </style>
 <body>
 	<div id="app">
-		<div>
-			<span>가격입력 : </span><input type="text" v-model="price">
-			<button @click="fnList()">검색하기</button>
-		</div>
-		<div>
-		{{list}}
+		<select v-model="transInfo">
+			<option value="선택">::선택::</option>
+			<option value="무료 배송">무료 배송</option>
+			<option value="착불 배송">착불 배송</option>
+		</select>
+		<button @click="fnList()">검색</button>
+
+		<div >
+			<table>
+				<tr>
+					<th>제품 번호</th>
+					<th>제품 이름</th>
+					<th>제품 가격</th>
+					<th>제품 설명</th>
+					<th>배송 방법</th>
+				</tr>
+				<tr v-for="item in list">
+					<td>{{item.itemNo}}</td>
+					<td>{{item.itemName}}</td>
+					<td>{{item.price}}</td>
+					<td>{{item.contents}}</td>
+					<td>{{item.transInfo}}</td>
+				</tr>
+			</table>
 		</div>
 	</div>
 </body>
@@ -26,24 +44,25 @@
 	var app = new Vue({
 		el : '#app',
 		data : {
-			price : "",
+			transInfo : "선택",
 			list : []
+
 		// 변수 영역
 		},
 		methods : { // 메소드 시작
 			fnList : function() {
 				var self = this;
 				var nparmap = {
-						price : self.price
+					transInfo : self.transInfo
 				};
 				$.ajax({
-					url : "productList.dox",
+					url : "productList2.dox",
 					dataType : "json",
 					type : "POST",
 					data : nparmap,
 					success : function(data) {
-						console.log(data);
 						self.list = data.list;
+
 					}
 				});
 			}

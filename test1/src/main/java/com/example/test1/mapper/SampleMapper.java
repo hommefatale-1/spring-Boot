@@ -16,4 +16,6 @@ public interface SampleMapper {
 	void insertStu(HashMap<String, Object> map); // 학생 추가
 
 	Student selectId(HashMap<String, Object> map); // 아이디 중복체크
+	
+	
 }

@@ -25,4 +25,7 @@ public interface BoardService {
 	//댓글 수정
 	HashMap<String, Object> editComment(HashMap<String, Object> map);
 	
+	//파일 넣기
+	HashMap<String, Object> addBoardFile(HashMap<String, Object> map);
+	
 }

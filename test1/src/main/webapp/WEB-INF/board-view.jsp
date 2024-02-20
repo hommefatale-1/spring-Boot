@@ -91,7 +91,12 @@ button:hover {
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td>{{info.contents}}</td>
+				<td>{{info.contents}}
+					<div v-for="item in fileList">
+					<!-- :src사용하기 그냥 할 경우 텍스트로 암 -->
+						<img alt="커비" :src="item.path">
+					</div>
+				</td>
 			</tr>
 		</table>
 		<!-- 댓글목록 보기 -->
@@ -149,9 +154,10 @@ button:hover {
 			boardNo : "${map.boardNo}",
 			sessionId : "${userId}",
 			sessionStatus : "${userStatus}",
-			info : {},
 			comment : "",
 			commentList : [],
+			fileList : [],
+			info : {},
 			editComment : "",
 			commentIndex : 0
 		},
@@ -170,6 +176,8 @@ button:hover {
 					success : function(data) {
 						self.info = data.info;
 						self.commentList = data.commentList;
+						self.fileList = data.fileList
+						//console.log(data.fileList);
 					}
 				});
 			},
@@ -232,17 +240,17 @@ button:hover {
 			/* 댓글 수정창보기 */
 			fneditBtn : function(item, index) {
 				var self = this;
-			/* 	for(var i=0; i<self.dommentList.length; i++){
-					self.commentList[i].updateFlg = true;
-				} */
-				if(self.commentIndex != index){
+				/* 	for(var i=0; i<self.dommentList.length; i++){
+						self.commentList[i].updateFlg = true;
+					} */
+				if (self.commentIndex != index) {
 					self.commentList[self.commentIndex].updateFlg = true;
 				}
 				self.commentIndex = index;
 				self.editComment = item.cmt;
 				item.updateFlg = !item.updateFlg;
 			},
-			
+
 			/* 댓글 수정 */
 			fneditComm : function(item) {
 				var self = this;

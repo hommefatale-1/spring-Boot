@@ -3,8 +3,36 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.example.test1.mapper.ProductMapper">
+	
+	<select id="selectProductDetail" parameterType="hashmap"
+		resultType="com.example.test1.model.Product">
+		SELECT * FROM TBL_PRODUCT WHERE ITEM_NO = #{itemNo}
+	</select>
+
+	
 	<select id="selectProductList" parameterType="hashmap"
 		resultType="com.example.test1.model.Product">
-		SELECT * FROM TBL_PRODUCT WHERE PRICE => #{price}
+		SELECT * FROM TBL_PRODUCT WHERE PRICE >= #{price}
 	</select>
+
+	<select id="selectProductTransInfo" parameterType="hashmap"
+		resultType="com.example.test1.model.Product">
+		SELECT * FROM TBL_PRODUCT WHERE TRANS_INFO = #{transInfo}
+	</select>
+
+	<select id="selectsellYnList" parameterType="hashmap"
+		resultType="com.example.test1.model.Product">
+		SELECT * FROM TBL_PRODUCT WHERE SELLYN = #{sellYn}
+	</select>
+
+	<delete id="deleteProduct" parameterType="hashmap">
+		DELETE TBL_PRODUCT
+		WHERE ITEM_NO = #{itemNo}
+	</delete>
+
+	<insert id="insertProduct" parameterType="hashmap">
+		INSERT INTO TBL_PRODUCT
+		VALUES(#{itemNo}, #{itemName}, #{price}, 0, 0, #{contents}, 'N',
+		#{transInfo})
+	</insert>
 </mapper>

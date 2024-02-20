@@ -11,4 +11,14 @@ import com.example.test1.model.Product;
 public interface ProductMapper {
 
 	List<Product> selectProductList(HashMap<String, Object> map);
+
+	List<Product> selectProductTransInfo(HashMap<String, Object> map);
+
+	List<Product> selectsellYnList(HashMap<String, Object> map);
+
+	void deleteProduct(HashMap<String, Object> map);
+	
+	void insertProduct(HashMap<String, Object> map);
+	
+	Product selectProductDetail(HashMap<String, Object> map);
 }

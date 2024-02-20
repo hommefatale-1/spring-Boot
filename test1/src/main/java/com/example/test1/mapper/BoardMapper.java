@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.example.test1.model.Board;
 import com.example.test1.model.Comment;
+import com.example.test1.model.BoardFile;
 import com.example.test1.model.User;
 
 @Mapper
@@ -40,4 +41,10 @@ public interface BoardMapper {
 
 	// 유저 정보 가져오기
 	User selectUser(HashMap<String, Object> map);
+	
+	//첨부파일
+	void insertBoardFile(HashMap<String, Object> map);
+	
+	//첨부파일 리스트
+	List<BoardFile> boardFileList(HashMap<String, Object> map);
 }

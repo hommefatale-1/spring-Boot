@@ -60,10 +60,13 @@
 	</update>
 
 	<!-- 게시글 작성 -->
-	<insert id="insertBoard" parameterType="hashmap">
-		INSERT INTO TBL_BOARD
+	<insert id="insertBoard" parameterType="hashmap"
+		useGeneratedKeys="true" keyProperty="BOARDNO" keyColumn="BOARDNO">
+		INSERT INTO
+		TBL_BOARD
 		VALUES(BBS_SEQ.NEXTVAL, #{title}, #{contents}, 0,
-		#{userId}, #{kind},
+		#{userId},
+		#{kind},
 		SYSDATE, SYSDATE)
 	</insert>
 	<!-- 게시글 수정 -->
@@ -94,4 +97,16 @@
 		UPDATE TBL_COMMENT SET
 		CMT = #{comment}, UDATETIME = SYSDATE WHERE COMMENTNO = #{commentNo}
 	</update>
+	<!-- 파일넣기 -->
+	<insert id="insertBoardFile" parameterType="hashmap">
+		INSERT INTO
+		TBL_BOARDFILE VALUES(FILE_SEQ.NEXTVAL, #{BOARDNO}, #{path},
+		#{fileName}, #{orgName}, #{fileSize}, #{fileEts})
+	</insert>
+	<!-- 첨부파일 리스트 -->
+	<select id="boardFileList" parameterType="hashmap"
+		resultType="com.example.test1.model.BoardFile">
+		SELECT B.*, FILEPATH || FILENAME AS PATH FROM
+		TBL_BOARDFILE B WHERE BOARDNO = #{boardNo}
+	</select>
 </mapper>

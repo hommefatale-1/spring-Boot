@@ -145,7 +145,7 @@ ul:hover {
 				<th>작성일</th>
 			</tr>
 			<tr v-for="(item, index) in list">
-				<td><input type="checkbox" name="board" v-model="selectList"
+				<td><input type="radio" name="board" v-model="selectBoardNo"
 					:value="item.boardNo"></td>
 				<td>{{item.boardNo}}</td>
 				<td><a href="javascript:;" @click="fnView(item.boardNo)">
@@ -173,13 +173,12 @@ ul:hover {
 			keyword : "",
 			keywordType : "",
 			kind : 1,
-			selectList : []
+			selectBoardNo : ""
 		},
 		methods : {
 			fnList : function(kind) {
 				var self = this;
 				self.kind = kind;
-				self.selectList = [];
 				var nparmap = {
 					keyword : self.keyword,
 					keywordType : self.keywordType,
@@ -214,43 +213,22 @@ ul:hover {
 			},
 			fnDelete : function(userId) {
 				var self = this;
-				//console.log(self.selectList);
-				if (!confirm("삭제하겠습니까?")) {
+				if(!confirm("삭제하겠습니까?")){
 					return;
 				}
-				//무식한 방법의 삭제
-				for (var i = 0; i < self.selectList.length; i++) {
-					var nparmap = {
-						boardNo : self.selectList[i]
-					};
-					$.ajax({
-						url : "boardDelete.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							alert("삭제되었다");
-							self.fnList(self.kind);
-						}
-					});
-				}
-
-				/* 	if(!confirm("삭제하겠습니까?")){
-						return;
+				//console.log(self.selectBoardNo);
+				var nparmap = {
+						boardNo : self.selectBoardNo
+				};
+				$.ajax({
+					url : "boardDelete.dox",
+					dataType : "json",
+					type : "POST",
+					data : nparmap,
+					success : function(data) {
+						self.fnList(self.kind);
 					}
-					//console.log(self.selectBoardNo);
-					var nparmap = {
-							boardNo : self.selectBoardNo
-					};
-					$.ajax({
-						url : "boardDelete.dox",
-						dataType : "json",
-						type : "POST",
-						data : nparmap,
-						success : function(data) {
-							self.fnList(self.kind);
-						}
-					}); */
+				});
 			}
 
 		},

@@ -86,29 +86,30 @@ button.delete-btn {
 		<table border="1">
 			<tr>
 				<th>게시판선택</th>
-				<td>
-				<select v-model="kind">
-				<option value="">::선택::</option>
-					<option value="1">공지사항</option>
-					<option value="2">자유게시판</option>
-					<option value="3">문의게시판</option>			
-				</select>
-				</td>
+				<td><select v-model="add.kind">
+						<option value="">::선택::</option>
+						<option value="1">공지사항</option>
+						<option value="2">자유게시판</option>
+						<option value="3">문의게시판</option>
+				</select></td>
 			</tr>
 			<tr>
 				<th>제목</th>
 				<td><input type="text" v-model="add.title"></td>
 			</tr>
+
+			<tr>
+				<td width="30%">파일</td>
+				<td width="70%"><input type="file" id="file1" name="file1"
+					accept=".jsp, .png, .gif"></td>
+			</tr>
+
 			<tr>
 				<th>내용</th>
 				<td><textarea rows="5" cols="40" v-model="add.contents"></textarea></td>
 			</tr>
-			<tr>
-				<th>작성자</th>
-				<td>{{ add.userId }}</td>
-			</tr>
 		</table>
-		<button @click="fnsave" class="primary">작성하기</button>
+		<button @click="fnsave()" class="primary">작성하기</button>
 	</div>
 </body>
 </html>
@@ -120,7 +121,7 @@ button.delete-btn {
 				userId : "${userId}",
 				title : "",
 				contents : "",
-				kind : "${map.kind}"
+				kind : ""
 			}
 		},
 		methods : {
@@ -134,11 +135,27 @@ button.delete-btn {
 					data : nparmap,
 					success : function(data) {
 						if (data.result == "success") {
-							alert("저장 되었습니다.");
-							$.pageChange("/boardList.do", {});
-						} else {
-							alert("다시 시도해주세요");
+							var form = new FormData();
+							form.append("file1", $("#file1")[0].files[0]);
+							form.append("boardNo", data.boardNo); // 임시 pk
+							self.upload(form);
+						}else{
+							
 						}
+					}
+				});
+			},
+			upload : function(form) {
+				var self = this;
+				console.log(form);
+				$.ajax({
+					url : "/fileUpload.dox",
+					type : "POST",
+					processData : false,
+					contentType : false,
+					data : form,
+					success : function(response) {
+
 					}
 				});
 			}

@@ -11,6 +11,6 @@ public class Product {
 	private int pRate;
 	private String contents;
 	private String sellYn;
-	private String trabnsInfo;
+	private String transInfo;
 
 }

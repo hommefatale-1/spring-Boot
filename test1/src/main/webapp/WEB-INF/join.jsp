@@ -13,8 +13,7 @@
 <body>
 	<div id="app">
 		<div>
-			<span>아이디 : </span> <input type="text" v-model="user.id"
-				@keyup="fncheck">
+			<span>아이디 : </span> <input type="text" v-model="user.id" @keyup="fncheck">
 			<div v-if="user.id != ''">
 				<div v-if="checkFlg" style="color: blue;">사용 가능한 아이디 입니다.</div>
 				<div v-else style="color: red;">중복된 아이디가 있습니다.</div>
@@ -27,15 +26,15 @@
 				<span>비밀번호 : </span><input type="text" v-model="user.pwd">
 			</div>
 			<div>
-				<span>비밀번호확인 : </span><input type="text" v-model="user.pwd1">
+				<span>비밀번호확인 : </span><input type="text" v-model="user.pwdch">
 			</div>
 			<div>
 				<span>이름 : </span><input type="text" v-model="user.name">
 			</div>
 			<div>
-				<span>핸드폰 번호 : </span> <input type="text" v-model="user.phone1">
-				- <input type="text" v-model="user.phone2"> - <input
-					type="text" v-model="user.phone3">
+				<span>핸드폰 번호 : </span> <input type="text" v-model="user.phone1">- 
+				<input type="text" v-model="user.phone2"> - 
+				<input type="text" v-model="user.phone3">
 			</div>
 			<div>
 				<label><input type="radio" name="gender" value="남성"v-model="user.gender">남성</label> 
@@ -66,6 +65,7 @@
 			checkFlg : false
 		},
 		methods : {
+			/* 로그인 */
 			fnjoin : function() {
 				var self = this;
 				if (self.user.id == "") {
@@ -98,6 +98,7 @@
 					}
 				});
 			},
+			/* 아이디 중복확인 */
 			fncheck : function() {
 				var self = this;
 				var nparmap = {
